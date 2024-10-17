@@ -1,12 +1,13 @@
 package main;
 
-import dao.UserDAO;
+import service.MentService;
 
 public class Main {
 
 	public static void main(String[] args) {
-	 new UserDAO();
+//	 new StuService();
+		new MentService();
 
-	}
+	} 
 
 }

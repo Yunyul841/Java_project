@@ -4,29 +4,27 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
-import dto.UserDTO;
+import dto.MentDTO;
 
-public class UserDAO {
-	
+public class MentDAO {
 	private String username = "system";
 	private String password = "11111111";
 	private String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 	private String driverName = "oracle.jdbc.driver.OracleDriver";
 	private Connection conn = null;
-	public static UserDAO userdao = null;
+	public static MentDAO mentdao = null;
 	
-	private void UserDAO() {
+	private void MentDAO() {
 		init();
 	}
 	
-	public static UserDAO getInstance() {
-		if(userdao == null) {
-			userdao = new UserDAO();
+	public static MentDAO getInstance() {
+		if(mentdao == null) {
+			mentdao = new MentDAO();
 		}
-		return userdao;
+		return mentdao;
 	}
 	
 
@@ -47,24 +45,24 @@ public class UserDAO {
 		}
 		return false; 
 	}
-
-	public void insert(UserDTO userdto) { 
+	
+	public void insert(MentDTO mentdto)	{
 		if(conn()) {
 			try {
-				String sql = "insert into Stu_user values(Stu_user_seq.nextval,?,?,?,?,?,default)";
+				String sql = "insert into Enrollment values(Enrollment_seq.nextval,?,?,?,?)";
 				PreparedStatement psmt = conn.prepareStatement(sql);
-				psmt.setString(1, userdto.getUserID());
-				psmt.setString(2, userdto.getPassword());
-				psmt.setString(3, userdto.getName());
-				psmt.setString(4, userdto.getPhone());
-				psmt.setString(5, userdto.getEmail());
+				psmt.setString(1, mentdto.getUserID());
+				psmt.setString(2, mentdto.getCourseID());
+				psmt.setString(3, mentdto.getEnrollmentDate());
+				psmt.setString(4, mentdto.getStatus());
 				int resultInt = psmt.executeUpdate();
 				if(resultInt > 0 ) {
 					conn.commit();
 				}else {
 					conn.rollback();
 				}
-			} catch (SQLException e) {
+		
+			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
 				try {
@@ -77,12 +75,10 @@ public class UserDAO {
 			}
 		}
 	}
-	
-	
 	public void delete(String delNum) {
 		if(conn()) {
 			try {
-				String sql ="delete from Stu_user where num=?";
+				String sql = "delete from Enrollment where num=? ";
 				PreparedStatement psmt = conn.prepareStatement(sql);
 				psmt.setString(1, delNum);
 				psmt.executeUpdate();
@@ -93,29 +89,25 @@ public class UserDAO {
 						conn.close();
 					}
 				} catch (Exception e2) {
+					// TODO: handle exception
 				}
 			}
 		}
 	}
-	
-	
-	public void update(UserDTO udto) {
+	public void update(MentDTO mdto) {
 		if(conn()) {
 			try {
-				String sql = "update Stu_user set UserID=?, Password=?, Name=?, Phone=?, Email=? Where num = ?";
+				String sql = "update Enrollment set UserID=?, COurseID=?, EnrollmentDate=?, Status=?";
 				PreparedStatement psmt = conn.prepareStatement(sql);
-				psmt.setInt(6, udto.getNum());
-				psmt.setString(1, udto.getUserID());
-				psmt.setString(2, udto.getPassword());
-				psmt.setString(3, udto.getName());
-				psmt.setString(4, udto.getPhone());
-				psmt.setString(5, udto.getEmail());
-				psmt.executeUpdate();
-				conn.commit();
+				psmt.setInt(1, mdto.getNum());
+				psmt.setString(2, mdto.getUserID());
+				psmt.setString(3, mdto.getCourseID());
+				psmt.setString(4, mdto.getEnrollmentDate());
+				psmt.setString(5, mdto.getStatus());
 				if(psmt.executeUpdate() == 0) {
 					System.out.println("존재하지 않습니다.");
 				}
-			} catch (SQLException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
 				try {
@@ -128,59 +120,56 @@ public class UserDAO {
 			}
 		}
 	}
-	
-	
-	public ArrayList<UserDTO> selectAll(){
-		ArrayList<UserDTO> ulist = new ArrayList<UserDTO>();
+	public ArrayList<MentDTO> selectAll(){
+		ArrayList<MentDTO> mlist = new ArrayList<MentDTO>();
 		if(conn()) {
 			try {
-				String sql = "select * from Stu_user";
+				String sql = "select * from Enrollment";
 				PreparedStatement psmt = conn.prepareStatement(sql);
 				ResultSet rs = psmt.executeQuery();
 				
 				while(rs.next()) {
-					UserDTO uTemp = new UserDTO();
-					uTemp.setNum(rs.getInt("num"));
-					uTemp.setEmail(rs.getString("Email"));
-//					uTemp.setJoinDate(rs.getString("joindate"));
-					uTemp.setPassword(rs.getString("password"));
-					uTemp.setName(rs.getString("name"));
-					uTemp.setUserID(rs.getString("userid"));
-					uTemp.setPhone(rs.getString("phone"));
-					ulist.add(uTemp);
+					MentDTO mTump = new MentDTO();
+					mTump.setNum(rs.getInt("num"));
+					mTump.setUserID(rs.getString("userid"));
+					mTump.setCourseID(rs.getString("courseid"));
+					mTump.setEnrollmentDate(rs.getString("enrollmentDate"));
+					mTump.setStatus(rs.getString("status"));
+					mlist.add(mTump);
 				}
-			} catch (SQLException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
 				try {
 					if(conn != null) {
 						conn.close();
 					}
-					} catch (Exception e2) {
+				} catch (Exception e2) {
+					// TODO: handle exception
 				}
 			}
+			
 		}
-		return ulist;
+		return mlist;
 	}
-	private UserDTO select(int findID) {
+	private MentDTO select(int findID) {
 		if(conn()) {
 			try {
-				String sql = "select * from Stu_user where num=?";
+				String sql = "select * from Enrollment where num=?";
 				PreparedStatement psmt = conn.prepareStatement(sql);
 				psmt.setInt(1, findID);
 				ResultSet rs = psmt.executeQuery();
 				if(rs.next()) {
-					UserDTO uTemp = new UserDTO();
-					uTemp.setNum(rs.getInt("Num"));
-					uTemp.setUserID(rs.getString("UserID"));
-					uTemp.setPassword(rs.getString("Password"));
-					uTemp.setName(rs.getString("Name"));
-					uTemp.setPhone(rs.getString("Phone"));
-					uTemp.setEmail(rs.getString("Email"));
+					MentDTO mTemp = new MentDTO();
+					mTemp.setNum(rs.getInt("Num"));
+					mTemp.setUserID(rs.getString("UserID"));
+					mTemp.setCourseID(rs.getString("CourseID"));
+					mTemp.setEnrollmentDate(rs.getString("EnrollmentDate"));
+					mTemp.setStatus(rs.getString("Status"));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-			} finally {
+			}finally {
 				try {
 					if(conn != null) {
 						conn.close();
@@ -192,9 +181,14 @@ public class UserDAO {
 		}
 		return null;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
-	
-	
-	
-	
-

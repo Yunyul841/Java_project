@@ -1,13 +1,12 @@
 package dto;
 
-public class EnrollmentDTO {
+public class MentDTO {
 	private int num;
-	private String EnrollmentDate;
-	private String Enrollment;
 	private String UserID;
 	private String CourseID;
+	private String EnrollmentDate;
 	private String Status;
-	
+	 
 	public int getNum() {
 		return num;
 	}
@@ -19,12 +18,6 @@ public class EnrollmentDTO {
 	}
 	public void setEnrollmentDate(String enrollmentDate) {
 		EnrollmentDate = enrollmentDate;
-	}
-	public String getEnrollment() {
-		return Enrollment;
-	}
-	public void setEnrollment(String enrollment) {
-		Enrollment = enrollment;
 	}
 	public String getUserID() {
 		return UserID;

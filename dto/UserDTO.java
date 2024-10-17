@@ -7,7 +7,6 @@ public class UserDTO {
 	private String Name;
 	private String Phone;
 	private String Email;
-	private String JoinDate;
 	
 	
 	public int getNum() {
@@ -21,12 +20,6 @@ public class UserDTO {
 	}
 	public void setPhone(String phone) {
 		Phone = phone;
-	}
-	public String getJoinDate() {
-		return JoinDate;
-	}
-	public void setJoinDate(String joinDate) {
-		JoinDate = joinDate;
 	}
 	public String getUserID() {
 		return UserID;
@@ -52,4 +45,10 @@ public class UserDTO {
 	public void setEmail(String email) {
 		Email = email;
 	}
+	@Override
+	public String toString() {
+		return "UserDTO [num=" + num + ", UserID=" + UserID + ", Password=" + Password + ", Name=" + Name + ", Phone="
+				+ Phone + ", Email=" + Email + "]";
+	}
+	
 }
