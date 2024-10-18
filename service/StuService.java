@@ -77,11 +77,12 @@ public class StuService {
 		
 	}
 	private void StuAll() { // 전체보기
-		ArrayList<UserDTO> userlist = userdao.selectAll();
-		for(UserDTO t : userlist) {
-			System.out.println(t.toString());
+		userlist();
+//		ArrayList<UserDTO> userlist = userdao.selectAll();
+//		for(UserDTO t : userlist) {
+//			System.out.println(t.toString());
 //			System.out.println("num:" + t.getNum());
-		}
+//	}
 			
 	}
 	private void StuDel() { // 삭제

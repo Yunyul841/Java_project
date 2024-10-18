@@ -71,10 +71,11 @@ public class MentService {
 	}
 
 	private void MentAll() {
-		ArrayList<MentDTO> mentlist = mentdao.selectAll();
-		for(MentDTO J : mentlist) {
-			System.out.println(J.toString());
-		}
+		mentlist();
+//		ArrayList<MentDTO> mentlist = mentdao.selectAll();
+//		for(MentDTO J : mentlist) {
+//			System.out.println(J.toString());
+//		}
 	}
 
 	private void MentDel() {
@@ -88,7 +89,7 @@ public class MentService {
 	private void mentlist() {
 		ArrayList<MentDTO> mentlist = mentdao.selectAll();
 		for(MentDTO M : mentlist) {
-			System.out.println(" 수강생 ID : " + M.getUserID() + " 강의ID : " + M.getCourseID()
+			System.out.println( "반호 : " + M.getNum() + " 수강생 ID : " + M.getUserID() + " 강의ID : " + M.getCourseID()
 								+ " 신청일 : " + M.getEnrollmentDate() + " 현재상태 : " + M.getStatus());
 		}
 	}

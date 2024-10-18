@@ -2,38 +2,29 @@ package dto;
 
 public class CourseDTO {
 	private int num;
-	private String Money;
-	private String CouserID;
-	private String CouserName;
+	private String CourseID;
+	private String CourseName;
 	private String Language;
-	private String CouserType;
-	private String RegionID;
-	
-	
+	private String CourseType;
+	private String Money;
+	private String Region;
 	public int getNum() {
 		return num;
 	}
 	public void setNum(int num) {
 		this.num = num;
 	}
-	
-	public String getMoney() {
-		return Money;
+	public String getCourseID() {
+		return CourseID;
 	}
-	public void setMoney(String money) {
-		Money = money;
+	public void setCourseID(String courseID) {
+		CourseID = courseID;
 	}
-	public String getCouserID() {
-		return CouserID;
+	public String getCourseName() {
+		return CourseName;
 	}
-	public void setCouserID(String couserID) {
-		CouserID = couserID;
-	}
-	public String getCouserName() {
-		return CouserName;
-	}
-	public void setCouserName(String couserName) {
-		CouserName = couserName;
+	public void setCourseName(String courseName) {
+		CourseName = courseName;
 	}
 	public String getLanguage() {
 		return Language;
@@ -41,16 +32,24 @@ public class CourseDTO {
 	public void setLanguage(String language) {
 		Language = language;
 	}
-	public String getCouserType() {
-		return CouserType;
+	public String getCourseType() {
+		return CourseType;
 	}
-	public void setCouserType(String couserType) {
-		CouserType = couserType;
+	public void setCourseType(String courseType) {
+		CourseType = courseType;
 	}
-	public String getRegionID() {
-		return RegionID;
+	public String getMoney() {
+		return Money;
 	}
-	public void setRegionID(String regionID) {
-		RegionID = regionID;
+	public void setMoney(String money) {
+		Money = money;
 	}
+	public String getRegion() {
+		return Region;
+	}
+	public void setRegion(String region) {
+		Region = region;
+	}
+	
 }
+	
