@@ -8,7 +8,7 @@ import dto.CourseDTO;
 
 public class CourseService {
 
-	private CourseDAO Coursedao = CourseDAO.getInstance();
+	private CourseDAO coursedao = CourseDAO.getInstance();
 	public CourseService() {
 		menu();
 	}
@@ -51,7 +51,7 @@ public class CourseService {
 		coursedto.setCourseType(CourseType);
 		coursedto.setMoney(Money);
 		coursedto.setRegion(Region);
-		Coursedao.insert(coursedto);
+		coursedao.insert(coursedto);
 	}
 
 	private void CouMod() {
@@ -80,11 +80,11 @@ public class CourseService {
 		System.out.println("수정할 지역 입력");
  		String Reg = in.nextLine();
  		coursedto.setRegion(Reg);
- 		Coursedao.update(coursedto);
+ 		coursedao.update(coursedto);
 	}
 
 	private void CouAll() {
-		ArrayList<CourseDTO> courselist = Coursedao.selectAll();
+		ArrayList<CourseDTO> courselist = coursedao.selectAll();
 		courseliset();
 //		for(CourseDTO A : courselist) {
 //			System.out.println(A.toString());
@@ -96,11 +96,11 @@ public class CourseService {
 		Scanner in = new Scanner(System.in);
 		System.out.println("삭제할 번호 입력");
 		String delNum = in.nextLine();
-		Coursedao.delete(delNum);
+		coursedao.delete(delNum);
 		
 	}
 	private void courseliset() {
-		ArrayList<CourseDTO> courselist = Coursedao.selectAll();
+		ArrayList<CourseDTO> courselist = coursedao.selectAll();
 		for(CourseDTO T : courselist) {
 			System.out.println( "번호 : " +  T.getNum() +" | " + "강의 ID : " + T.getCourseID() + " | "+ "강의명 : " + T.getCourseName() + " | "
 								+ "언어 : " + T.getLanguage() + " | " + " 과정종류 : " + T.getCourseType()+ " | "

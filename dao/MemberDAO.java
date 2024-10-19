@@ -7,27 +7,26 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import dto.CourseDTO;
+import dto.MemberDTO;
 
-public class CourseDAO {
-	
+public class MemberDAO {
 	private String username = "system";
 	private String password = "11111111";
 	private String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 	private String driverName = "oracle.jdbc.driver.OracleDriver";
 	private Connection conn = null;
-	public static CourseDAO coursedao = null;
+	private static MemberDAO memberdao = null;
 	
 	
-	private void CourseDAO() {
+	private void MemberDAO() {
 		init();
 	}
 	
-	public static CourseDAO getInstance() {
-		if(coursedao == null) {
-			coursedao = new CourseDAO();
+	public static MemberDAO getInstance() {
+		if(memberdao == null) {
+			memberdao = new MemberDAO();
 		}
-		return coursedao;
+		return memberdao;
 	}
 	
 
@@ -48,17 +47,16 @@ public class CourseDAO {
 		}
 		return false; 
 	}
-	public void insert(CourseDTO coursedto) {
+	public void insert(MemberDTO logindto) {
 		if(conn()) {
 			try {
-				String sql = "insert into Course values(Course_seq.nextval,?,?,?,?,?,?)";
+				String sql = "insert into Login values(?,?,?,?,?)";
 				PreparedStatement psmt = conn.prepareStatement(sql);
-				psmt.setString(1, coursedto.getCourseID());
-				psmt.setString(2, coursedto.getCourseName());
-				psmt.setString(3, coursedto.getLanguage());
-				psmt.setString(4, coursedto.getCourseType());
-				psmt.setString(5, coursedto.getMoney());
-				psmt.setString(6, coursedto.getRegion());
+				psmt.setString(1, logindto.getID());
+				psmt.setString(2, logindto.getPwd());
+				psmt.setString(3, logindto.getName());
+				psmt.setString(4, logindto.getBirth());
+				psmt.setString(5, logindto.getPhone());
 				int resultInt = psmt.executeUpdate();
 				if(resultInt > 0) {
 					conn.commit();
@@ -77,12 +75,12 @@ public class CourseDAO {
 			}
 		}
 	}
-	public void delete(String delNum) {
+	public void delete(String logNum) {
 		if(conn()) {
 			try {
-				String sql ="delete from Course where num=?";
+				String sql = "delete from Login where num=?";
 				PreparedStatement psmt = conn.prepareStatement(sql);
-				psmt.setString(1, delNum);
+				psmt.setString(1, logNum);
 				psmt.executeUpdate();
 			} catch (Exception e) {
 			} finally {
@@ -95,26 +93,20 @@ public class CourseDAO {
 			}
 		}
 	}
-	public void update(CourseDTO Cdto) {
+	public void update(MemberDTO Ldto) {
 		if(conn()) {
 			try {
-				String sql = "update Course set CourseID=?, CourseName=?, Language=?,"
-						+ "CourseType=?, Money=?, Region=? Where num=?";
+				String sql = "update Login set ID=?, Password=? Where num=?";
 				PreparedStatement psmt = conn.prepareStatement(sql);
-				psmt.setInt(7, Cdto.getNum());
-				psmt.setString(1, Cdto.getCourseID());
-				psmt.setString(2, Cdto.getCourseName());
-				psmt.setString(3, Cdto.getLanguage());
-				psmt.setString(4, Cdto.getCourseType());
-				psmt.setString(5, Cdto.getMoney());
-				psmt.setString(6, Cdto.getRegion());
+				psmt.setInt(3, Ldto.getNum());
+				psmt.setString(1, Ldto.getID());
+				psmt.setString(2, Ldto.getPwd());
 				psmt.executeUpdate();
 				conn.commit();
-				if(psmt.executeUpdate() == 0) {
+				if(psmt.executeUpdate()==0) {
 					System.out.println("존재하지 않습니다");
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
 			} finally {
 				try {
 					if(conn != null) {
@@ -125,24 +117,20 @@ public class CourseDAO {
 			}
 		}
 	}
-	public ArrayList<CourseDTO> selectAll(){
-		ArrayList<CourseDTO> clist = new ArrayList<>();
+	public ArrayList<MemberDTO> selectAll(){
+		ArrayList<MemberDTO> jlist = new ArrayList<>();
 		if(conn()) {
 			try {
-				String sql = "select * from Course";
+				String sql = "select * from Login";
 				PreparedStatement psmt = conn.prepareStatement(sql);
 				ResultSet rs = psmt.executeQuery();
 				
 				while(rs.next()) {
-					CourseDTO cTemp = new CourseDTO();
-					cTemp.setNum(rs.getInt("num"));
-					cTemp.setCourseID(rs.getString("CourseID"));
-					cTemp.setCourseName(rs.getString("CourseName"));
-					cTemp.setLanguage(rs.getString("Language"));
-					cTemp.setCourseType(rs.getString("CourseType"));
-					cTemp.setMoney(rs.getString("Money"));
-					cTemp.setRegion(rs.getString("Region"));
-					clist.add(cTemp);
+					MemberDTO lTemp = new MemberDTO();
+					lTemp.setNum(rs.getInt("Num"));
+					lTemp.setID(rs.getString("ID"));
+					lTemp.setPwd(rs.getString("Pwd"));
+					jlist.add(lTemp);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -152,29 +140,25 @@ public class CourseDAO {
 						conn.close();
 					}
 				} catch (Exception e2) {
+					// TODO: handle exception
 				}
 			}
 		}
-		return clist;
+		return jlist;
 	}
-	private CourseDTO select(int Cnum) {
+	private MemberDTO select(int LNum) {
 		if(conn()) {
 			try {
-				String sql = "select * from Course where num=?";
+				String sql = "select * from Login where num=?";
 				PreparedStatement psmt = conn.prepareStatement(sql);
-				psmt.setInt(1, Cnum);
+				psmt.setInt(1, LNum);
 				ResultSet rs = psmt.executeQuery();
 				if(rs.next()) {
-					CourseDTO cTemp = new CourseDTO();
-					cTemp.setNum(rs.getInt("num"));
-					cTemp.setCourseID(rs.getString("CourseID"));
-					cTemp.setCourseName(rs.getString("CourseName"));
-					cTemp.setLanguage(rs.getString("Language"));
-					cTemp.setCourseType(rs.getString("CourseType"));
-					cTemp.setMoney(rs.getString("Money"));
-					cTemp.setRegion(rs.getString("Region"));
+					MemberDTO lTemp = new MemberDTO();
+					lTemp.setNum(rs.getInt("Num"));
+					lTemp.setID(rs.getString("ID"));
+					lTemp.setPwd(rs.getString("Pwd"));
 				}
-				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}finally {
@@ -183,9 +167,11 @@ public class CourseDAO {
 						conn.close();
 					}
 				} catch (Exception e2) {
+					// TODO: handle exception
 				}
 			}
 		}
 		return null;
 	}
+	
 }
