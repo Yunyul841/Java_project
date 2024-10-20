@@ -50,7 +50,7 @@ public class MemberDAO {
 	public void insert(MemberDTO logindto) {
 		if(conn()) {
 			try {
-				String sql = "insert into Login values(?,?,?,?,?)";
+				String sql = "insert into member values(member_seq.nextval,?,?,?,?,?)";
 				PreparedStatement psmt = conn.prepareStatement(sql);
 				psmt.setString(1, logindto.getID());
 				psmt.setString(2, logindto.getPwd());
@@ -78,7 +78,7 @@ public class MemberDAO {
 	public void delete(String logNum) {
 		if(conn()) {
 			try {
-				String sql = "delete from Login where num=?";
+				String sql = "delete from member where num=?";
 				PreparedStatement psmt = conn.prepareStatement(sql);
 				psmt.setString(1, logNum);
 				psmt.executeUpdate();
@@ -96,7 +96,7 @@ public class MemberDAO {
 	public void update(MemberDTO Ldto) {
 		if(conn()) {
 			try {
-				String sql = "update Login set ID=?, Password=? Where num=?";
+				String sql = "update member set ID=?, Password=? Where num=?";
 				PreparedStatement psmt = conn.prepareStatement(sql);
 				psmt.setInt(3, Ldto.getNum());
 				psmt.setString(1, Ldto.getID());
@@ -121,7 +121,7 @@ public class MemberDAO {
 		ArrayList<MemberDTO> jlist = new ArrayList<>();
 		if(conn()) {
 			try {
-				String sql = "select * from Login";
+				String sql = "select * from member";
 				PreparedStatement psmt = conn.prepareStatement(sql);
 				ResultSet rs = psmt.executeQuery();
 				
@@ -130,6 +130,9 @@ public class MemberDAO {
 					lTemp.setNum(rs.getInt("Num"));
 					lTemp.setID(rs.getString("ID"));
 					lTemp.setPwd(rs.getString("Pwd"));
+					lTemp.setName(rs.getString("Name"));
+					lTemp.setBirth(rs.getString("Birth"));
+					lTemp.setPhone(rs.getString("Phone"));
 					jlist.add(lTemp);
 				}
 			} catch (Exception e) {

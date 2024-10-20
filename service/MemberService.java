@@ -15,7 +15,7 @@ public class MemberService {
 	}
 //	ArrayList<LoginDTO> Llist = new ArrayList<>(); 
 	
-	private void menu() {
+	public void menu() {
 		Scanner in = new Scanner(System.in);
 		boolean flag = true;
 		while(flag) {
@@ -62,15 +62,15 @@ public class MemberService {
 		System.out.println("수정할 Pwd 입력");
 		String Pwd = in.nextLine();
 		logindto.setPwd(Pwd);
-		System.out.println("수정할 Name 입력");
-		String Name = in.nextLine();
-		logindto.setName(Name);
-		System.out.println("수정할 Birth 입력");
-		String Birth = in.nextLine();
-		logindto.setName(Name);
-		System.out.println("수정할 Phone 입력");
-		String Phone = in.nextLine();
-		logindto.setPhone(Phone);
+//		System.out.println("수정할 Name 입력");
+//		String Name = in.nextLine();
+//		logindto.setName(Name);
+//		System.out.println("수정할 Birth 입력");
+//		String Birth = in.nextLine();
+//		logindto.setName(Name);
+//		System.out.println("수정할 Phone 입력");
+//		String Phone = in.nextLine();
+//		logindto.setPhone(Phone);
 		logindao.update(logindto);
 	}
 	private void userAll() {
@@ -82,13 +82,13 @@ public class MemberService {
 		loginlist();
 		System.out.println("삭제할 번호 입력");
 		String logNum = in.nextLine();
-		logindao.delete(logNum);
+		logindao.delete(logNum); 
 	}
 	private void loginlist() {
 		ArrayList<MemberDTO> loginlist = logindao.selectAll();
 		for(MemberDTO A : loginlist) {
-			System.out.println("ID : " + A.toString() + "Pwd : " + A.toString() + "Name : " + A.toString()
-								+ "Birth : " + A.toString() + "Phone : " + A.toString());
+			System.out.println("번호 : "+ A.getNum() + "| " + "아이디 : " + A.getID() + " | " + "페스워드 : " + A.getPwd() + " | " + "이름 : " + A.getName()+" | "
+								+ "생일 : " + A.getBirth()+ " | "  + "핸드폰번호 : " + A.getPhone());
 		}
 	}
 }

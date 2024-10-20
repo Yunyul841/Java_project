@@ -5,8 +5,9 @@ public class MemberDTO {
 	private String ID;
 	private String Pwd;
 	private String Name;
-	private String Birth;
 	private String Phone;
+	private String Birth;
+	private String Email;
 	
 	public int getNum() {
 		return Num;
@@ -32,21 +33,26 @@ public class MemberDTO {
 	public void setName(String name) {
 		Name = name;
 	}
-	public String getBirth() {
-		return Birth;
-	}
-	public void setBirth(String birth) {
-		Birth = birth;
-	}
 	public String getPhone() {
 		return Phone;
 	}
 	public void setPhone(String phone) {
 		Phone = phone;
 	}
-	@Override
-	public String toString() {
-		return "LoginDTO [Num=" + Num + ", ID=" + ID + ", Pwd=" + Pwd + ", Name=" + Name + ", Birth=" + Birth
-				+ ", Phone=" + Phone + "]";
+	public String getBirth() {
+		return Birth;
 	}
+	public void setBirth(String birth) {
+		Birth = birth;
+	}
+	public String getEmail() {
+		return Email;
+	}
+	public void setEmail(String email) {
+		Email = email;
+	}
+	
+	
+	
+	
 }
