@@ -7,15 +7,14 @@ import dao.MemberDAO;
 import dto.MemberDTO;
 
 public class MemberService {
-	private MemberDAO logindao = MemberDAO.getInstance();
-	Scanner in = new Scanner(System.in);
-	MemberDTO logindto = new MemberDTO(); 
+	private MemberDAO memberdao = MemberDAO.getInstance();
+	
+	MemberDTO memberdto = new MemberDTO();
 	public MemberService() {
 		menu();
 	}
-//	ArrayList<LoginDTO> Llist = new ArrayList<>(); 
 	
-	public void menu() {
+	private void menu() {
 		Scanner in = new Scanner(System.in);
 		boolean flag = true;
 		while(flag) {
@@ -23,7 +22,7 @@ public class MemberService {
 			int selNum = in.nextInt();
 			in.nextLine();
 			switch (selNum) {
-			case 1: userAdd(); break;
+			case 1: userAdd(); break; 
 			case 2: userMod(); break;
 			case 3: userAll(); break;
 			case 4: userDel(); break;
@@ -33,35 +32,46 @@ public class MemberService {
 	}
 
 	private void userAdd() {
-		MemberDTO logindto = new MemberDTO(); 
+		Scanner in = new Scanner(System.in);
+		MemberDTO memberdto = new MemberDTO(); 
 		System.out.println("ID를 입력하세요");
 		String ID = in.nextLine();
 		System.out.println("Pwd를 입력하세요");
 		String Pwd = in.nextLine();
 		System.out.println("Name를 입력하세요");
 		String Name = in.nextLine();
-		System.out.println("Birth를 입력하세요");
-		String Birth = in.nextLine();
 		System.out.println("Phone를 입력하세요");
 		String Phone = in.nextLine();
-		logindto.setID(ID);
-		logindto.setPwd(Pwd);
-		logindto.setName(Name);
-		logindto.setBirth(Birth);
-		logindto.setPhone(Phone);
-		logindao.insert(logindto); 
+		System.out.println("Birth를 입력하세요");
+		String Birth = in.nextLine();
+		System.out.println("Email을 입력하세요");
+		String Email = in.nextLine();
+//		System.out.println("Date를 입력하세요");
+//		String Date = in.nextLine();
+		memberdto.setUserID(ID);
+		memberdto.setUserPwd(Pwd);
+		memberdto.setUserName(Name);
+		memberdto.setUserPhone(Phone);
+		memberdto.setUserBirth(Birth);
+		memberdto.setUserEmail(Email);
+//		logindto.setDate(Date);
+		memberdao.insert(memberdto); 
+		
 	}
 	private void userMod() {
+		memberlist();
+		Scanner in = new Scanner(System.in);
 		System.out.println("수정할 Num 입력");
 		int Num = in.nextInt();
 		in.nextLine();
-		logindto.setNum(Num);
+		memberdto.setNum(Num);
 		System.out.println("수정할 ID 입력");
 		String ID = in.nextLine();
-		logindto.setID(ID);
+		memberdto.setUserID(ID);
 		System.out.println("수정할 Pwd 입력");
 		String Pwd = in.nextLine();
-		logindto.setPwd(Pwd);
+		memberdto.setUserPwd(Pwd);
+		memberdao.update(memberdto);
 //		System.out.println("수정할 Name 입력");
 //		String Name = in.nextLine();
 //		logindto.setName(Name);
@@ -71,24 +81,26 @@ public class MemberService {
 //		System.out.println("수정할 Phone 입력");
 //		String Phone = in.nextLine();
 //		logindto.setPhone(Phone);
-		logindao.update(logindto);
 	}
 	private void userAll() {
-		ArrayList<MemberDTO> loginlist = logindao.selectAll();
-		loginlist();
+		memberlist();
+		ArrayList<MemberDTO> memlist = memberdao.selectAll();
+//		System.out.println("1");
+//		System.out.println("2");
 	}
 	
 	private void userDel() {
-		loginlist();
+		memberlist();
+		Scanner in = new Scanner(System.in);
 		System.out.println("삭제할 번호 입력");
-		String logNum = in.nextLine();
-		logindao.delete(logNum); 
+		String MNum = in.nextLine();
+		memberdao.delete(MNum);
 	}
-	private void loginlist() {
-		ArrayList<MemberDTO> loginlist = logindao.selectAll();
-		for(MemberDTO A : loginlist) {
-			System.out.println("번호 : "+ A.getNum() + "| " + "아이디 : " + A.getID() + " | " + "페스워드 : " + A.getPwd() + " | " + "이름 : " + A.getName()+" | "
-								+ "생일 : " + A.getBirth()+ " | "  + "핸드폰번호 : " + A.getPhone());
+	private void memberlist() {
+		ArrayList<MemberDTO> memlist = memberdao.selectAll();
+		for(MemberDTO A : memlist) {
+			System.out.println("번호 : " + A.getNum() + " | " + "아이디 : " + A.getUserID() + " | " + "페스워드 : " + A.getUserPwd() + " | " + "이름 : " + A.getUserName()+ " | "
+								+ "생일 : " + A.getUserBirth() + " | "  + "핸드폰번호 : " + A.getUserPhone());
 		}
 	}
 }

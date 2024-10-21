@@ -13,7 +13,7 @@ public class CourseService {
 		menu();
 	}
 	
-	public void menu() {
+	private void menu() {
 		Scanner in = new Scanner(System.in);
 		boolean flag = true;
 		while(flag) {
@@ -25,9 +25,10 @@ public class CourseService {
 			case 2: CouMod(); break;
 			case 3: CouAll(); break;
 			case 4: CouDel(); break;
-			case 5: break;
+			case 5: flag = false; break;
 			}
 		}
+		in.close();
 	}
 
 	private void CouAdd() {

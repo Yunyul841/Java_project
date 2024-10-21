@@ -49,12 +49,12 @@ public class MentDAO {
 	public void insert(MentDTO mentdto)	{
 		if(conn()) {
 			try {
-				String sql = "insert into Enrollment values(Enrollment_seq.nextval,?,?,?,?)";
+				String sql = "insert into Enrollment values(Enrollment_seq.nextval,?,?,default,?)";
 				PreparedStatement psmt = conn.prepareStatement(sql);
 				psmt.setString(1, mentdto.getUserID());
 				psmt.setString(2, mentdto.getCourseID());
-				psmt.setString(3, mentdto.getEnrollmentDate());
-				psmt.setString(4, mentdto.getStatus());
+//				psmt.setString(3, mentdto.getEnrollmentDate());
+				psmt.setString(3, mentdto.getStatus());
 				int resultInt = psmt.executeUpdate();
 				if(resultInt > 0 ) {
 					conn.commit();

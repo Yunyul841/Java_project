@@ -12,7 +12,7 @@ public class MentService {
 		menu();
 	}
 
-	public void menu() {
+	private void menu() {
 		Scanner in = new Scanner(System.in);
 		boolean flag = true;
 		while(flag) {
@@ -36,13 +36,13 @@ public class MentService {
 		String UserID = in.nextLine();
 		System.out.println("강의 ID를 입력하세요");
 		String CourseID = in.nextLine();
-		System.out.println("신청일을 입력하세요");
-		String EnrollmentDate = in.nextLine();
+//		System.out.println("신청일을 입력하세요");
+//		String EnrollmentDate = in.nextLine();
 		System.out.println("현재 상태를 입력하세요");
 		String Status = in.nextLine();
 		mentdto.setUserID(UserID);
 		mentdto.setCourseID(CourseID);
-		mentdto.setEnrollmentDate(EnrollmentDate);
+//		mentdto.setEnrollmentDate(EnrollmentDate);
 		mentdto.setStatus(Status);
 		mentdao.insert(mentdto);
 	}
@@ -61,9 +61,9 @@ public class MentService {
 		System.out.println("수정할 강의ID를 입력하세요");
 		String CID = in.nextLine();
 		mentdto.setCourseID(CID);
-		System.out.println("수정할 신청일을 입력하세요");
-		String Edte = in.nextLine();
-		mentdto.setEnrollmentDate(Edte);
+//		System.out.println("수정할 신청일을 입력하세요");
+//		String Edte = in.nextLine();
+//		mentdto.setEnrollmentDate(Edte);
 		System.out.println("수정할 현재 상태를 입력하세요");
 		String St = in.nextLine();
 		mentdto.setStatus(St);

@@ -47,16 +47,19 @@ public class MemberDAO {
 		}
 		return false; 
 	}
-	public void insert(MemberDTO logindto) {
+	public void insert(MemberDTO memberdto) {
 		if(conn()) {
 			try {
-				String sql = "insert into member values(member_seq.nextval,?,?,?,?,?)";
+				String sql = "insert into member values(member_seq.nextval,?,?,?,?,?,?,default)";
 				PreparedStatement psmt = conn.prepareStatement(sql);
-				psmt.setString(1, logindto.getID());
-				psmt.setString(2, logindto.getPwd());
-				psmt.setString(3, logindto.getName());
-				psmt.setString(4, logindto.getBirth());
-				psmt.setString(5, logindto.getPhone());
+				psmt.setString(1, memberdto.getUserID());
+				psmt.setString(2, memberdto.getUserPwd());
+				psmt.setString(3, memberdto.getUserName());
+				psmt.setString(4, memberdto.getUserPhone());
+				psmt.setString(5, memberdto.getUserBirth());
+				psmt.setString(6, memberdto.getUserEmail());
+//				psmt.setString(7, logindto.getDate());
+			
 				int resultInt = psmt.executeUpdate();
 				if(resultInt > 0) {
 					conn.commit();
@@ -75,12 +78,12 @@ public class MemberDAO {
 			}
 		}
 	}
-	public void delete(String logNum) {
+	public void delete(String MNum) {
 		if(conn()) {
 			try {
 				String sql = "delete from member where num=?";
 				PreparedStatement psmt = conn.prepareStatement(sql);
-				psmt.setString(1, logNum);
+				psmt.setString(1, MNum);
 				psmt.executeUpdate();
 			} catch (Exception e) {
 			} finally {
@@ -93,14 +96,14 @@ public class MemberDAO {
 			}
 		}
 	}
-	public void update(MemberDTO Ldto) {
+	public void update(MemberDTO mdto) {
 		if(conn()) {
 			try {
-				String sql = "update member set ID=?, Password=? Where num=?";
+				String sql = "update member set userid=?, userpwd=? where num=?";
 				PreparedStatement psmt = conn.prepareStatement(sql);
-				psmt.setInt(3, Ldto.getNum());
-				psmt.setString(1, Ldto.getID());
-				psmt.setString(2, Ldto.getPwd());
+				psmt.setInt(3, mdto.getNum());
+				psmt.setString(1, mdto.getUserID());
+				psmt.setString(2, mdto.getUserPwd());
 				psmt.executeUpdate();
 				conn.commit();
 				if(psmt.executeUpdate()==0) {
@@ -128,11 +131,11 @@ public class MemberDAO {
 				while(rs.next()) {
 					MemberDTO lTemp = new MemberDTO();
 					lTemp.setNum(rs.getInt("Num"));
-					lTemp.setID(rs.getString("ID"));
-					lTemp.setPwd(rs.getString("Pwd"));
-					lTemp.setName(rs.getString("Name"));
-					lTemp.setBirth(rs.getString("Birth"));
-					lTemp.setPhone(rs.getString("Phone"));
+					lTemp.setUserID(rs.getString("UserId"));
+					lTemp.setUserPwd(rs.getString("UserPwd"));
+					lTemp.setUserName(rs.getString("UserName"));
+					lTemp.setUserBirth(rs.getString("UserBirth"));
+					lTemp.setUserPhone(rs.getString("UserPhone"));
 					jlist.add(lTemp);
 				}
 			} catch (Exception e) {
@@ -148,19 +151,19 @@ public class MemberDAO {
 			}
 		}
 		return jlist;
-	}
+	} 
 	private MemberDTO select(int LNum) {
 		if(conn()) {
 			try {
-				String sql = "select * from Login where num=?";
+				String sql = "select * from member  where num=?";
 				PreparedStatement psmt = conn.prepareStatement(sql);
 				psmt.setInt(1, LNum);
 				ResultSet rs = psmt.executeQuery();
 				if(rs.next()) {
 					MemberDTO lTemp = new MemberDTO();
 					lTemp.setNum(rs.getInt("Num"));
-					lTemp.setID(rs.getString("ID"));
-					lTemp.setPwd(rs.getString("Pwd"));
+					lTemp.setUserID(rs.getString("ID"));
+					lTemp.setUserPwd(rs.getString("Pwd"));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

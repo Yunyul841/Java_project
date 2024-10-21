@@ -17,6 +17,7 @@ public class CourseDAO {
 	private String driverName = "oracle.jdbc.driver.OracleDriver";
 	private Connection conn = null;
 	public static CourseDAO coursedao = null;
+//	PreparedStatement pstmt = null;
 	
 	
 	private void CourseDAO() {
@@ -103,7 +104,7 @@ public class CourseDAO {
 				PreparedStatement psmt = conn.prepareStatement(sql);
 				psmt.setInt(7, Cdto.getNum());
 				psmt.setString(1, Cdto.getCourseID());
-				psmt.setString(2, Cdto.getCourseName());
+				psmt.setString(2, Cdto.getCourseName()); 
 				psmt.setString(3, Cdto.getLanguage());
 				psmt.setString(4, Cdto.getCourseType());
 				psmt.setString(5, Cdto.getMoney());
