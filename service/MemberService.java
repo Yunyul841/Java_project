@@ -99,7 +99,7 @@ public class MemberService {
 	private void memberlist() {
 		ArrayList<MemberDTO> memlist = memberdao.selectAll();
 		for(MemberDTO A : memlist) {
-			System.out.println("번호 : " + A.getNum() + " | " + "아이디 : " + A.getUserID() + " | " + "페스워드 : " + A.getUserPwd() + " | " + "이름 : " + A.getUserName()+ " | "
+			System.out.println("번호 : " + A.getNum() + " | " + "아이디 : " + A.getUserID() + " | " + " 패스워드 : " + A.getUserPwd() + " | " + "이름 : " + A.getUserName()+ " | "
 								+ "생일 : " + A.getUserBirth() + " | "  + "핸드폰번호 : " + A.getUserPhone());
 		}
 	}
