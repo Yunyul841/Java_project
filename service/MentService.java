@@ -16,7 +16,7 @@ public class MentService {
 		Scanner in = new Scanner(System.in);
 		boolean flag = true;
 		while(flag) {
-			System.out.println("1.등록, 2.수정, 3.전체보기, 4.삭제, 5.종료" );
+			System.out.println("1.등록, 2.수정, 3.전체보기, 4.삭제, 5.이전" );
 			int selNum = in.nextInt();
 			in.nextLine();
 			switch (selNum) {
@@ -24,7 +24,7 @@ public class MentService {
 			case 2: MentMod(); break;
 			case 3: MentAll(); break;
 			case 4: MentDel(); break;
-			case 5: break;
+			case 5: System.out.println("이전화면이동");return;
 			}
 		}
 	}
@@ -89,8 +89,8 @@ public class MentService {
 	private void mentlist() {
 		ArrayList<MentDTO> mentlist = mentdao.selectAll();
 		for(MentDTO M : mentlist) {
-			System.out.println( "반호 : " + M.getNum() + " 수강생 ID : " + M.getUserID() + " 강의ID : " + M.getCourseID()
-								+ " 신청일 : " + M.getEnrollmentDate() + " 현재상태 : " + M.getStatus());
+			System.out.println( "반호 : " + M.getNum() + " | " + " 수강생 ID : " + M.getUserID() + " | " + " 강의ID : " + M.getCourseID()  + " | "
+								+ " 신청일 : " + M.getEnrollmentDate()  + " | " + " 현재상태 : " + M.getStatus());
 		}
 	}
 	

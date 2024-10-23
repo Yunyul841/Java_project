@@ -1,6 +1,6 @@
 package main;
 
-import service.MentService;
+import service.MemberService;
 
 public class Main {
 
@@ -8,6 +8,6 @@ public class Main {
 //	new MentService();
 //	new CourseService();
 //	new MemberService();
-		new MainMenu();
+	new MainMenu();
 	} 
 }

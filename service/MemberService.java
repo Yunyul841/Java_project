@@ -18,7 +18,7 @@ public class MemberService {
 		Scanner in = new Scanner(System.in);
 		boolean flag = true;
 		while(flag) {
-			System.out.println("1.등록, 2.수정, 3.전체보기, 4.삭제, 5.종료" );
+			System.out.println("1.등록, 2.수정, 3.전체보기, 4.삭제, 5.이전" );
 			int selNum = in.nextInt();
 			in.nextLine();
 			switch (selNum) {
@@ -26,7 +26,7 @@ public class MemberService {
 			case 2: userMod(); break;
 			case 3: userAll(); break;
 			case 4: userDel(); break;
-			case 5: break;
+			case 5:  System.out.println("이전화면이동");return;
 			}
 		}
 	}

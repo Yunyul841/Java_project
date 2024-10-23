@@ -18,7 +18,7 @@ public class MemberDAO {
 	private static MemberDAO memberdao = null;
 	
 	
-	private void MemberDAO() {
+	private MemberDAO() {
 		init();
 	}
 	
@@ -29,6 +29,7 @@ public class MemberDAO {
 		return memberdao;
 	}
 	
+	
 
 	private void init() { 
 		try {
@@ -37,6 +38,7 @@ public class MemberDAO {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+		
 	}
 	private boolean conn() {
 		try {
@@ -46,6 +48,7 @@ public class MemberDAO {
 		} catch (Exception e) {
 		}
 		return false; 
+		
 	}
 	public void insert(MemberDTO memberdto) {
 		if(conn()) {

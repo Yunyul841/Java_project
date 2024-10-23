@@ -58,6 +58,7 @@ public class MentDAO {
 				int resultInt = psmt.executeUpdate();
 				if(resultInt > 0 ) {
 					conn.commit();
+					System.out.println("컴잇완료");
 				}else {
 					conn.rollback();
 				}
@@ -86,8 +87,9 @@ public class MentDAO {
 			} finally {
 				try {
 					if(conn != null) {
-						conn.close();
+					
 					}
+					conn.close();
 				} catch (Exception e2) {
 					// TODO: handle exception
 				}

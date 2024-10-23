@@ -17,7 +17,7 @@ public class CourseService {
 		Scanner in = new Scanner(System.in);
 		boolean flag = true;
 		while(flag) {
-			System.out.println("1.등록, 2.수정, 3.전체보기, 4.삭제, 5.종료" );
+			System.out.println("1.등록, 2.수정, 3.전체보기, 4.삭제, 5.이전" );
 			int selNum = in.nextInt();
 			in.nextLine();
 			switch (selNum) {
@@ -25,7 +25,7 @@ public class CourseService {
 			case 2: CouMod(); break;
 			case 3: CouAll(); break;
 			case 4: CouDel(); break;
-			case 5: flag = false; break;
+			case 5: System.out.println("이전화면이동");return;
 			}
 		}
 		in.close();

@@ -2,7 +2,6 @@ package main;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import dao.CourseDAO;
 import dao.MemberDAO;
 import dto.MemberDTO;
 import service.CourseService;
@@ -13,9 +12,9 @@ public class MainMenu {
     private MemberService memberService = null;
     private CourseService courseService = null;
     private MentService mentService = null;
-    private MemberDTO user = null;
+//    private MemberDTO memberdto = null;
     private ArrayList<MemberDTO> Mlist = new ArrayList<>(); // 회원 정보를 저장하는 리스트
-    private MemberDAO memberdao = MemberDAO.getInstance();
+    private MemberDAO memberdao = MemberDAO.getInstance(); 
     Scanner in = new Scanner(System.in);
 
     public MainMenu() {
@@ -27,19 +26,22 @@ public class MainMenu {
     private void selectUserType() {
         System.out.println("1. 관리자");
         System.out.println("2. 사용자");
+        System.out.println("0. 종료");
         System.out.print("선택하세요: ");
         int selection = in.nextInt();
         in.nextLine(); 
+        while(true) {
+			if (selection == 1) {
+				System.out.println("관리자로 로그인합니다.");
+				adminLogin();
+			} else if (selection == 2) {
+				System.out.println("사용자로 로그인합니다.");
+				login();
+			} else if(selection == 0){
+				System.out.println("프로그램을 종료합니다");
+				break;
 
-        if (selection == 1) {
-            System.out.println("관리자로 로그인합니다.");
-            adminLogin();
-        } else if (selection == 2) {
-            System.out.println("사용자로 로그인합니다.");
-            login();
-        } else {
-            System.out.println("잘못된 선택입니다. 다시 시도하세요.");
-            selectUserType();
+			}
         }
     }
 
@@ -56,22 +58,23 @@ public class MainMenu {
     }
 
     // 관리자 메뉴
-    private void adminMenu() {
-        System.out.println("관리자 메뉴");
-        // 관리자 메뉴 항목 추가 가능
-        System.out.println("로그아웃 하시겠습니까? (y/n): ");
-        String choice = in.nextLine();
-        if (choice.equalsIgnoreCase("y")) {
-            System.out.println("로그아웃 완료");
-            selectUserType();
-        } else {
-            adminMenu();
-        }
-    }
+//    private void adminMenu() {
+//        System.out.println("관리자 메뉴");
+//        // 관리자 메뉴 항목 추가 가능
+//        System.out.println("로그아웃 하시겠습니까? (y/n): ");
+//        String choice = in.nextLine();
+//        if (choice.equalsIgnoreCase("y")) {
+//            System.out.println("로그아웃 완료");
+//            selectUserType();
+//        } else {
+//            adminMenu();
+//        }
+//    }
 
     // 사용자 로그인 처리
     private void login() {
-    	MemberDTO memberdto = new MemberDTO(); 
+    	
+//    	MemberDTO memberdto = new MemberDTO(); 
         System.out.println("ID 입력:");
         String ID = in.nextLine();
         System.out.println("비밀번호 입력:");
@@ -81,9 +84,9 @@ public class MainMenu {
 //        memberdao.insert(memberdto);
         // 사용자 리스트에서 ID를 찾음
         boolean userFound = false;
-        for (MemberDTO member : Mlist) {
-            if (member.getUserID().equals(ID) && member.getUserPwd().equals(Pwd)) {
-                user = member; // 로그인한 사용자 정보 저장
+        for (int i = 0; i<memberdao.selectAll().size();i++) {
+            if (memberdao.selectAll().get(i).getUserID().equals(ID) && memberdao.selectAll().get(i).getUserPwd().equals(Pwd)) {
+//                memberdto = member; // 로그인한 사용자 정보 저장
                 userFound = true;
                 break;
             }
@@ -93,6 +96,7 @@ public class MainMenu {
             System.out.println("로그인 성공 | 메인으로 이동");
             userMenu();
         } else {
+//        	System.out.println(userFound);
             System.out.println("아이디가 존재하지 않습니다. 회원가입으로 이동합니다.");
             membership();
         }
@@ -120,7 +124,7 @@ public class MainMenu {
         System.out.print("이메일을 입력하세요: ");
         String Email = in.nextLine();
         member.setUserEmail(Email);
-        Mlist.add(member); // 리스트에 회원 정보 저장
+		memberdao.insert(member); 
         System.out.println("회원가입이 완료되었습니다.");
 
         // 회원가입 후 다시 로그인
@@ -133,7 +137,6 @@ public class MainMenu {
             System.out.println("1. 수강생 정보");
             System.out.println("2. 강의 정보");
             System.out.println("3. 수강신청");
-            System.out.println("4. 이전버튼");
             System.out.println("0. 로그아웃");
             System.out.print("원하시는 항목을 선택해주세요: ");
             int selNum = in.nextInt();
@@ -144,7 +147,7 @@ public class MainMenu {
                 case 2:CourseService();break; // 강의
                 case 3:MentService();break; // 수강신청
                 case 0: System.out.println("로그아웃 완료");selectUserType();break;
-                case 9: System.out.println("이전화면으로 이동");return;
+//                case 9: System.out.println("이전화면으로 이동");return;
 //                default:System.out.println("잘못된 선택입니다. 다시 시도하세요.");
             }
         }
@@ -166,17 +169,14 @@ public class MainMenu {
     }
     private void MemberService() {
         memberService = new MemberService();
-        // memberService.menu(); // 실제 구현이 필요
     }
 
     private void CourseService() {
         courseService = new CourseService();
-        // courseService.menu(); // 실제 구현이 필요
     }
 
     private void MentService() {
         mentService = new MentService();
-        // mentService.menu(); // 실제 구현이 필요
     }
 }
 
