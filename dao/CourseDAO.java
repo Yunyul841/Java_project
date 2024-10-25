@@ -15,11 +15,11 @@ public class CourseDAO {
 	private String password = "11111111";
 	private String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 	private String driverName = "oracle.jdbc.driver.OracleDriver";
-	private Connection conn = null;
-	public static CourseDAO coursedao = null;
+	public Connection conn = null;
 //	PreparedStatement pstmt = null;
 	
 	
+	public static CourseDAO coursedao = null;
 	private void CourseDAO() {
 		init();
 	}
@@ -127,7 +127,8 @@ public class CourseDAO {
 		}
 	}
 	public ArrayList<CourseDTO> selectAll(){
-		ArrayList<CourseDTO> clist = new ArrayList<>();
+		ArrayList<CourseDTO> clist 
+		= new ArrayList<>();
 		if(conn()) {
 			try {
 				String sql = "select * from Course";

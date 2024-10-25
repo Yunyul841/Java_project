@@ -58,7 +58,7 @@ public class MentDAO {
 				int resultInt = psmt.executeUpdate();
 				if(resultInt > 0 ) {
 					conn.commit();
-					System.out.println("컴잇완료");
+//					System.out.println("컴잇완료");
 				}else {
 					conn.rollback();
 				}
@@ -86,6 +86,7 @@ public class MentDAO {
 			} catch (Exception e) {
 			} finally {
 				try {
+					System.out.println("수강신청 취소 완료");
 					if(conn != null) {
 					
 					}
@@ -99,14 +100,12 @@ public class MentDAO {
 	public void update(MentDTO mdto) {
 		if(conn()) {
 			try {
-				String sql = "update Enrollment set UserID=?, CourseID=?, EnrollmentDate=?,"
-						+ " Status=? Where num=? ";
+				String sql = "update Enrollment set UserID=?, CourseID=?, Status=? Where num=? ";
 				PreparedStatement psmt = conn.prepareStatement(sql);
-				psmt.setInt(5, mdto.getNum());
+				psmt.setInt(4, mdto.getNum());
 				psmt.setString(1, mdto.getUserID());
 				psmt.setString(2, mdto.getCourseID());
-				psmt.setString(3, mdto.getEnrollmentDate());
-				psmt.setString(4, mdto.getStatus());
+				psmt.setString(3, mdto.getStatus());
 				if(psmt.executeUpdate() == 0) {
 					System.out.println("존재하지 않습니다.");
 				}

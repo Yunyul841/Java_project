@@ -8,7 +8,25 @@ public class MemberDTO {
 	private String UserPhone;
 	private String UserBirth;
 	private String UserEmail;
-	private String date;
+	private String Joindate; 
+	
+	
+	
+	
+	String id = "human01";
+	private String subject;
+	char charvalue = subject.charAt(0);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public int getNum() {
 		return Num;
 	}
@@ -52,10 +70,10 @@ public class MemberDTO {
 		UserBirth = userBirth;
 	}
 	public String getDate() {
-		return date;
+		return Joindate;
 	}
 	public void setDate(String date) {
-		this.date = date;
+		this.Joindate = date;
 	}
 	
 

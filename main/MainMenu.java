@@ -20,7 +20,7 @@ public class MainMenu {
     public MainMenu() {
         // 관리자 또는 사용자를 선택하게 함
         selectUserType();
-    }
+    } 
 
     // 관리자와 사용자 구분
     private void selectUserType() {
@@ -44,6 +44,10 @@ public class MainMenu {
 			}
         }
     }
+    
+    
+    
+    
 
     // 관리자 로그인 처리
     private void adminLogin() {
@@ -167,6 +171,8 @@ public class MainMenu {
     		
     	}
     }
+    
+    
     private void MemberService() {
         memberService = new MemberService();
     }

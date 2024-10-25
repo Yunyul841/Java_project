@@ -15,9 +15,8 @@ public class MemberDAO {
 	private String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 	private String driverName = "oracle.jdbc.driver.OracleDriver";
 	private Connection conn = null;
-	private static MemberDAO memberdao = null;
-	
-	
+
+	public static MemberDAO memberdao = null;
 	private MemberDAO() {
 		init();
 	}
@@ -61,7 +60,7 @@ public class MemberDAO {
 				psmt.setString(4, memberdto.getUserPhone());
 				psmt.setString(5, memberdto.getUserBirth());
 				psmt.setString(6, memberdto.getUserEmail());
-//				psmt.setString(7, logindto.getDate());
+//				psmt.setString(7, "default");
 			
 				int resultInt = psmt.executeUpdate();
 				if(resultInt > 0) {
@@ -137,8 +136,10 @@ public class MemberDAO {
 					lTemp.setUserID(rs.getString("UserId"));
 					lTemp.setUserPwd(rs.getString("UserPwd"));
 					lTemp.setUserName(rs.getString("UserName"));
-					lTemp.setUserBirth(rs.getString("UserBirth"));
 					lTemp.setUserPhone(rs.getString("UserPhone"));
+					lTemp.setUserEmail(rs.getString("UserEmail"));
+					lTemp.setUserBirth(rs.getString("UserBirth"));
+					lTemp.setDate(rs.getString("Joindate"));
 					jlist.add(lTemp);
 				}
 			} catch (Exception e) {
@@ -149,7 +150,6 @@ public class MemberDAO {
 						conn.close();
 					}
 				} catch (Exception e2) {
-					// TODO: handle exception
 				}
 			}
 		}

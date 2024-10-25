@@ -8,7 +8,7 @@ import dto.CourseDTO;
 
 public class CourseService {
 
-	private CourseDAO coursedao = CourseDAO.getInstance();
+	CourseDAO coursedao = CourseDAO.getInstance();
 	public CourseService() {
 		menu();
 	}

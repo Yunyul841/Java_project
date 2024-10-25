@@ -1,5 +1,7 @@
 package dto;
 
+import java.util.Scanner;
+
 public class CourseDTO {
 	private int num;
 	private String CourseID;
@@ -8,6 +10,14 @@ public class CourseDTO {
 	private String CourseType;
 	private String Money;
 	private String Region;
+	
+	
+	
+//	char charvalue = id.charAt(0);
+//	char a = charAt
+	
+	
+	
 	public int getNum() {
 		return num;
 	}

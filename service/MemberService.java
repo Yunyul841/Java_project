@@ -7,9 +7,10 @@ import dao.MemberDAO;
 import dto.MemberDTO;
 
 public class MemberService {
+	
 	private MemberDAO memberdao = MemberDAO.getInstance();
 	
-	MemberDTO memberdto = new MemberDTO();
+	
 	public MemberService() {
 		menu();
 	}
@@ -42,23 +43,24 @@ public class MemberService {
 		String Name = in.nextLine();
 		System.out.println("Phone를 입력하세요");
 		String Phone = in.nextLine();
-		System.out.println("Birth를 입력하세요");
-		String Birth = in.nextLine();
 		System.out.println("Email을 입력하세요");
 		String Email = in.nextLine();
+		System.out.println("Birth를 입력하세요");
+		String Birth = in.nextLine();
 //		System.out.println("Date를 입력하세요");
 //		String Date = in.nextLine();
 		memberdto.setUserID(ID);
 		memberdto.setUserPwd(Pwd);
 		memberdto.setUserName(Name);
 		memberdto.setUserPhone(Phone);
-		memberdto.setUserBirth(Birth);
 		memberdto.setUserEmail(Email);
+		memberdto.setUserBirth(Birth);
 //		logindto.setDate(Date);
 		memberdao.insert(memberdto); 
 		
 	}
 	private void userMod() {
+		MemberDTO memberdto = new MemberDTO();
 		memberlist();
 		Scanner in = new Scanner(System.in);
 		System.out.println("수정할 Num 입력");
@@ -85,7 +87,7 @@ public class MemberService {
 	private void userAll() {
 		memberlist();
 		ArrayList<MemberDTO> memlist = memberdao.selectAll();
-//		System.out.println("1");
+//		System.out.println("1");" 생일 : "
 //		System.out.println("2");
 	}
 	
@@ -100,7 +102,7 @@ public class MemberService {
 		ArrayList<MemberDTO> memlist = memberdao.selectAll();
 		for(MemberDTO A : memlist) {
 			System.out.println("번호 : " + A.getNum() + " | " + "아이디 : " + A.getUserID() + " | " + " 패스워드 : " + A.getUserPwd() + " | " + "이름 : " + A.getUserName()+ " | "
-								+ "생일 : " + A.getUserBirth() + " | "  + "핸드폰번호 : " + A.getUserPhone());
+					+ "핸드폰번호 : " + A.getUserPhone() + " | " + " 생일 : " + A.getUserEmail() + " | " + "이메일 : " + A.getUserBirth()+ " | " + "가입날짜 : " + A.getDate());
 		}
 	}
 }
