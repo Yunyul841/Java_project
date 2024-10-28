@@ -40,15 +40,18 @@ public class CourseDAO {
 			e.printStackTrace();
 		}
 	}
+	
 	private boolean conn() {
 		try {
 			conn = DriverManager.getConnection(url, username, password);
 			System.out.println("커넥션 자원 획득 성공");
 			return true; 
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return false; 
 	}
+	
 	public void insert(CourseDTO coursedto) {
 		if(conn()) {
 			try {
